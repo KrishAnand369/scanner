@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: QRScanner(),
+      home: HomePage(),
       theme: ThemeData(
           appBarTheme: AppBarTheme(backgroundColor: Colors.tealAccent)),
     );
