@@ -99,7 +99,7 @@ class _QRScannerState extends State<QRScanner> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           ElevatedButton(onPressed: (){}, child: Text('add'))
+           ElevatedButton(onPressed: (){Navigator.of(context).pop();}, child: Text('add'))
           ],
         ),
       );
