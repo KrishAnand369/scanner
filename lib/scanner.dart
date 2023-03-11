@@ -41,7 +41,7 @@ class _QRScannerState extends State<QRScanner> {
               buildQrView(context),
               Positioned(bottom: 20, child: buidResult()),
               Positioned(top: 20, child: buildControlButton()),
-              Positioned(bottom: 100,child:addButton())
+              Positioned(bottom: 100, child: addButton())
             ],
           ),
         ),
@@ -57,18 +57,39 @@ class _QRScannerState extends State<QRScanner> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: () async {
-                await controller?.toggleFlash();
-                setState(() {});
-              },
-              icon: Icon(Icons.flash_off),
-            ),
+              icon: FutureBuilder<bool?>(
+      future: controller?.getFlashStatus(),
+      builder: (context, snapshot) {if (snapshot.data!=null)
+      {return Icon(snapshot.data!? Icons.flash_on_rounded:Icons.flash_off_rounded);}
+      else{return Container();}}
+     ),
+     onPressed: () async {
+      await controller?.toggleFlash();
+      setState(() {});
+    },
+  ),
+
+
+
+
+
+            
             IconButton(
+              icon:FutureBuilder(
+      future: controller?.getCameraInfo(),
+      builder: (context, snapshot) {
+        if (snapshot.data!=null){
+          return Icon(Icons.switch_camera_rounded);
+          }
+      else{
+        return Container();}}
+     
+    ) ,
               onPressed: () async {
                 await controller?.flipCamera();
                 setState(() {});
               },
-              icon: Icon(Icons.switch_camera),
+              
             )
           ],
         ),
@@ -92,26 +113,34 @@ class _QRScannerState extends State<QRScanner> {
         ),
       );
 
-        Widget addButton() => Container(
+  Widget addButton() => Container(
         padding: EdgeInsets.all(10),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           ElevatedButton(onPressed: (){Navigator.of(context).pop();}, child: Text('add'))
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('add'))
           ],
         ),
       );
-
-      
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
     });
+    /*FutureBuilder<bool?>(
+      future: controller?.getFlashStatus(),
+      builder: (context, snapshot) {if (snapshot.data!=null){return Icon(Icons.flash_off_rounded);}
+      else{return Container();}}
+     
+    );*/
 
     controller.scannedDataStream
         .listen((barcode) => setState(() => this.barcode = barcode));
-  }                    
+  }
 }
