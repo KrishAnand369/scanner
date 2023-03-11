@@ -39,8 +39,9 @@ class _QRScannerState extends State<QRScanner> {
             alignment: Alignment.center,
             children: <Widget>[
               buildQrView(context),
-              Positioned(bottom: 10, child: buidResult()),
-              Positioned(top: 10, child: buildControlButton())
+              Positioned(bottom: 20, child: buidResult()),
+              Positioned(top: 20, child: buildControlButton()),
+              Positioned(bottom: 100,child:addButton())
             ],
           ),
         ),
@@ -90,6 +91,20 @@ class _QRScannerState extends State<QRScanner> {
           borderColor: Colors.blue,
         ),
       );
+
+        Widget addButton() => Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+           ElevatedButton(onPressed: (){}, child: Text('add'))
+          ],
+        ),
+      );
+
+      
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
