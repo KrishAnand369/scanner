@@ -68,13 +68,7 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {});
     },
   ),
-
-
-
-
-
-            
-            IconButton(
+IconButton(
               icon:FutureBuilder(
       future: controller?.getCameraInfo(),
       builder: (context, snapshot) {
@@ -99,7 +93,7 @@ class _QRScannerState extends State<QRScanner> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(color: Colors.lightGreen),
       child: Text(
-        barcode != null ? 'RESULT :${barcode!.code}' : 'Scan a QR fCode',
+        barcode != null ? 'RESULT :${barcode!.code}' : 'Scan a QR Code',
         maxLines: 3,
       ));
 
